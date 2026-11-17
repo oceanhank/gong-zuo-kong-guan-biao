@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>工作控管表（公開版）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f5f3;
+    --surface:#ffffff;
+    --surface-2:#eef1ee;
+    --ink:#17201c;
+    --ink-2:#4b5a52;
+    --ink-3:#7a8a81;
+    --line:#dde3de;
+    --accent:#0e6b4f;
+    --accent-soft:#e3f0ea;
+    --accent-ink:#0a4f3a;
+    --shadow:0 1px 2px rgba(20,35,28,.05),0 8px 24px rgba(20,35,28,.05);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#101512;
+      --surface:#1a211d;
+      --surface-2:#232c27;
+      --ink:#e8edea;
+      --ink-2:#aebbb3;
+      --ink-3:#7f8f86;
+      --line:#2e3a34;
+      --accent:#3ec79a;
+      --accent-soft:#1d332b;
+      --accent-ink:#8fe3c2;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.25);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent)}
+  button,[role="button"]{min-height:40px}
+  .wrap{max-width:1080px;margin:0 auto;padding:20px 16px 56px}
+
+  /* Header */
+  .topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .snapshot{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:700;letter-spacing:.02em;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--line);padding:7px 12px;border-radius:999px}
+  .snapshot i{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+  .owner{font-size:.85rem;color:var(--ink-2)}
+  .owner strong{color:var(--ink)}
+  h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:clamp(1.9rem,5vw,2.7rem);line-height:1.15;margin:6px 0 8px;letter-spacing:.01em}
+  .lede{color:var(--ink-2);font-size:.98rem;max-width:680px;margin:0 0 20px}
+  .lede strong{color:var(--ink)}
+
+  /* Stats */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+  @media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+  .stat b{display:block;font-size:1.7rem;line-height:1;font-weight:900;letter-spacing:-.02em}
+  .stat span{display:block;margin-top:6px;font-size:.82rem;color:var(--ink-2);font-weight:500}
+  .stat em{font-style:normal;color:var(--accent);font-weight:700}
+
+  /* Controls */
+  .controls{position:sticky;top:0;z-index:20;background:var(--bg);padding:10px 0 12px;margin-bottom:6px}
+  .search{display:flex;gap:8px;margin-bottom:10px}
+  .search input{flex:1;min-height:44px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:0 14px;font-size:.95rem;font-family:inherit;outline:none}
+  .search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .filter-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+  .filter-row:last-child{margin-bottom:0}
+  .filter-label{width:2.2rem;flex:none;font-size:.84rem;color:var(--ink-2);font-weight:500}
+  .chip{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-family:inherit;font-weight:700;font-size:.86rem;padding:8px 14px;border-radius:999px;cursor:pointer;min-height:40px}
+  .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  @media(prefers-color-scheme:dark){.chip[aria-pressed="true"]{background:var(--ink);color:#101512}}
+  .chip .n{font-variant-numeric:tabular-nums;font-weight:500;font-size:.78rem;opacity:.75;margin-left:4px}
+  .matched{display:none;align-items:center;gap:14px;margin-top:10px;font-size:.88rem;color:var(--ink-2)}
+  .matched.on{display:flex}
+  .matched button{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:.84rem;font-weight:700;padding:6px 12px;border-radius:8px;cursor:pointer;min-height:40px}
+
+  /* Milestone */
+  .milestone{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);margin-bottom:22px}
+  .milestone h2{margin:0 0 4px;font-size:.92rem;font-weight:900}
+  .milestone p{margin:0 0 12px;font-size:.84rem;color:var(--ink-2)}
+  .track{display:flex;gap:4px;flex-wrap:wrap}
+  .step{flex:1 1 90px;background:var(--surface-2);border-radius:8px;padding:8px 10px;text-align:center}
+  .step b{display:block;font-size:.95rem}
+  .step span{font-size:.76rem;color:var(--ink-2);font-weight:500}
+
+  /* Sections */
+  section{margin-bottom:28px;scroll-margin-top:150px}
+  .sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px;margin-bottom:4px}
+  .sec-head h2{font-family:"Noto Serif TC",serif;font-size:1.35rem;font-weight:900;margin:0}
+  .sec-head .period{font-size:.86rem;color:var(--ink-2);font-weight:500}
+  .sec-head .hint{font-size:.8rem;color:var(--ink-3)}
+  .sec-head .count{margin-left:auto;font-size:.82rem;font-weight:700;color:var(--ink-3)}
+
+  /* Table -> cards */
+  .table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+  .table th,.table td{text-align:left;vertical-align:top;padding:13px 14px;border-bottom:1px solid var(--line)}
+  .table thead th{font-size:.78rem;letter-spacing:.06em;color:var(--ink-3);font-weight:700;background:var(--surface-2);white-space:nowrap}
+  .table tbody tr:last-child td{border-bottom:none}
+  .table tbody tr{transition:background .12s}
+  .table tbody tr:hover{background:var(--surface-2)}
+  .code{font-variant-numeric:tabular-nums;font-weight:700;font-size:.88rem;white-space:nowrap}
+  .code.none{color:var(--ink-3);font-weight:500}
+  .title-cell{font-weight:600;font-size:.95rem;min-width:240px}
+  .is-new{border-left:3px solid var(--accent) !important}
+  .new-tag{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.04em;color:var(--accent-ink);background:var(--accent-soft);padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+  .note-cell{font-size:.88rem;color:var(--ink-2);min-width:200px}
+
+  .progress{display:flex;align-items:center;gap:10px;min-width:150px}
+  .bar{flex:1;height:8px;background:var(--surface-2);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+  .bar i{display:block;height:100%;background:var(--accent);border-radius:999px}
+  .progress b{font-size:.9rem;font-variant-numeric:tabular-nums;min-width:38px}
+  .progress .stage{font-size:.8rem;color:var(--ink-2);white-space:nowrap}
+  .progress .na{color:var(--ink-3);font-size:.85rem}
+
+  .empty{display:none;background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius);padding:22px;text-align:center;color:var(--ink-2);font-size:.92rem}
+
+  footer{border-top:1px solid var(--line);padding-top:16px;margin-top:8px;font-size:.83rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+
+  @media(max-width:760px){
+    .table,.table thead,.table tbody,.table tr,.table td{display:block;width:100%}
+    .table thead{display:none}
+    .table tr{padding:14px 14px 6px;border-bottom:1px solid var(--line)}
+    .table tbody tr:last-child{border-bottom:none}
+    .table td{border:none;padding:0 0 8px;min-width:0 !important}
+    .table td::before{content:attr(data-label);display:block;font-size:.72rem;letter-spacing:.06em;color:var(--ink-3);font-weight:700;margin-bottom:2px}
+    .title-cell{font-size:1rem}
+    .controls{top:0}
+    section{scroll-margin-top:190px}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.table tbody tr{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="snapshot"><i></i>快照日期：2026-11-17</span>
+    <span class="owner">負責人員：<strong>周宗翰</strong></span>
+  </div>
+
+  <h1>工作控管表</h1>
+  <p class="lede">與 Space 版相同的四區分法：<strong>本週、待辦、追蹤中、已完成・已結案</strong>，共 24 項，每項只列一次。本週為 <strong>115/11/9–11/13</strong>；最新新增是待辦的「調整續航及股利專案階梯利率」，預計 1 月底前上線。</p>
+
+  <div class="stats" aria-label="各區概況">
+    <div class="stat"><b>8</b><span>本週</span></div>
+    <div class="stat"><b>7</b><span>待辦（含 <em>1 項新增</em>）</span></div>
+    <div class="stat"><b>6</b><span>追蹤中</span></div>
+    <div class="stat"><b>3</b><span>已完成・已結案</span></div>
+  </div>
+
+  <div class="controls">
+    <div class="search">
+      <input id="q" type="search" placeholder="搜尋單號、需求簡述或備註…" aria-label="搜尋單號、需求簡述或備註">
+    </div>
+    <div class="filter-row" role="group" aria-label="依區段篩選">
+      <span class="filter-label">區段</span>
+      <button class="chip" data-group="section" data-value="all" aria-pressed="true">全部</button>
+      <button class="chip" data-group="section" data-value="thisweek" aria-pressed="false">本週<span class="n">8</span></button>
+      <button class="chip" data-group="section" data-value="todo" aria-pressed="false">待辦<span class="n">7</span></button>
+      <button class="chip" data-group="section" data-value="tracking" aria-pressed="false">追蹤中<span class="n">6</span></button>
+      <button class="chip" data-group="section" data-value="done" aria-pressed="false">已完成・已結案<span class="n">3</span></button>
+    </div>
+    <div class="filter-row" role="group" aria-label="依進度篩選">
+      <span class="filter-label">進度</span>
+      <button class="chip" data-group="progress" data-value="all" aria-pressed="true">全部進度</button>
+      <button class="chip" data-group="progress" data-value="unfilled" aria-pressed="false">進度未填</button>
+      <button class="chip" data-group="progress" data-value="inprogress" aria-pressed="false">進行中</button>
+      <button class="chip" data-group="progress" data-value="done" aria-pressed="false">已完成 100%</button>
+    </div>
+    <div class="filter-row" role="group" aria-label="依單號篩選">
+      <span class="filter-label">單號</span>
+      <button class="chip" data-group="ticket" data-value="all" aria-pressed="true">全部單號</button>
+      <button class="chip" data-group="ticket" data-value="has" aria-pressed="false">有單號</button>
+      <button class="chip" data-group="ticket" data-value="none" aria-pressed="false">無單號</button>
+    </div>
+    <div class="matched" id="matched">
+      <span id="matchedText"></span>
+      <button type="button" id="clearFilters">清除篩選</button>
+    </div>
+  </div>
+
+  <div class="milestone">
+    <h2>進度里程碑（IR）</h2>
+    <p>進度 % 指整個項目進度，依下列里程碑認定：</p>
+    <div class="track">
+      <div class="step"><b>20%</b><span>TS 完成</span></div>
+      <div class="step"><b>50%</b><span>開發完成</span></div>
+      <div class="step"><b>60%</b><span>QA 完成</span></div>
+      <div class="step"><b>70%</b><span>Code review</span></div>
+      <div class="step"><b>80%</b><span>驗收</span></div>
+      <div class="step"><b>90%</b><span>上線</span></div>
+      <div class="step"><b>100%</b><span>結案</span></div>
+    </div>
+  </div>
+
+  <!-- 本週 -->
+  <section id="thisweek" data-section="thisweek">
+    <div class="sec-head"><h2>本週</h2><span class="period">115/11/9 – 115/11/13</span><span class="count">8 項</span></div>
+    <table class="table">
+      <thead><tr><th>單號</th><th>需求簡述</th><th>進度</th><th>備註</th></tr></thead>
+      <tbody>
+        <tr data-progress="" data-ticket="has" data-search="2507151094 合併案 R4 平測三">
+          <td data-label="單號"><span class="code">2507151094</span></td>
+          <td data-label="需求簡述" class="title-cell">合併案相關事項（R4、平測三相關事項）</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中</td>
+        </tr>
+        <tr data-progress="" data-ticket="has" data-search="2507151094 XREF 匯出 新光">
+          <td data-label="單號"><span class="code">2507151094</span></td>
+          <td data-label="需求簡述" class="title-cell">執行XREF匯出作業</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中；11/09 10:00 日誌：準備執行XREF匯出作業</td>
+        </tr>
+        <tr data-progress="" data-ticket="none" data-search="Richart 定存 無法解約">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">查詢Richart 定存無法解約問題</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中</td>
+        </tr>
+        <tr data-progress="" data-ticket="has" data-search="2610211036 扣繳憑單 預演 試跑">
+          <td data-label="單號"><span class="code">2610211036</span></td>
+          <td data-label="需求簡述" class="title-cell">扣繳憑單作業（預先試跑驗證）</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中；11/09 14:00、15:00 日誌：扣繳憑單作業問題處理、扣繳憑單作業</td>
+        </tr>
+        <tr data-progress="" data-ticket="has" data-search="2507041017 新壽 即期支票 聯行兌付 USER">
+          <td data-label="單號"><span class="code">2507041017</span></td>
+          <td data-label="需求簡述" class="title-cell">新壽即期支票聯行兌付（確認USER需求）</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中</td>
+        </tr>
+        <tr data-progress="10" data-ticket="none" data-search="存摺 餘額不符 補印存摺">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">處理存摺餘額不符無法補印存摺問題</td>
+          <td data-label="進度"><div class="progress"><div class="bar"><i style="width:10%"></i></div><b>10%</b></div></td>
+          <td data-label="備註" class="note-cell">進行中</td>
+        </tr>
+        <tr data-progress="" data-ticket="has" data-search="2610151031 Richart 大會員 定存結清 稅率代號">
+          <td data-label="單號"><span class="code">2610151031</span></td>
+          <td data-label="需求簡述" class="title-cell">Richart 大會員定存結清失敗（稅率代號錯誤）</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中；2026-11-09 他確認仍處理中（未出現在 11/09 信中）</td>
+        </tr>
+        <tr data-progress="" data-ticket="none" data-search="支存需求 支票存款">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">支存需求</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中；11/09 11:00 日誌：確認支存需求（未出現在 11/09 信中）</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="empty">沒有符合篩選的項目。</div>
+  </section>
+
+  <!-- 待辦 -->
+  <section id="todo" data-section="todo">
+    <div class="sec-head"><h2>待辦</h2><span class="count">7 項</span></div>
+    <table class="table">
+      <thead><tr><th>單號</th><th>需求簡述</th><th>進度</th><th>備註</th></tr></thead>
+      <tbody>
+        <tr data-progress="" data-ticket="none" data-search="作服 外僑 扣憑檔 廠商列印">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">作服需求：外僑扣憑檔傳輸廠商列印</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">目前處理情形：預計 2027 年開始開發</td>
+        </tr>
+        <tr data-progress="" data-ticket="has" data-search="2311201028 Bancs C18 C20 特殊註記 高風險 BSLINK">
+          <td data-label="單號"><span class="code">2311201028</span></td>
+          <td data-label="需求簡述" class="title-cell">臨櫃交易執行 Bancs 系統時檢核「特殊註記客戶／未予核貸紀錄查詢維護系統」C18、C20、「高風險警示資料庫」，觸擊時跳提示訊息</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">目前處理情形：剩待 BSLINK 完成</td>
+        </tr>
+        <tr data-progress="" data-ticket="none" data-search="存款餘額證明 無法列印">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">無法列印存款餘額證明問題</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">待處理</td>
+        </tr>
+        <tr data-progress="" data-ticket="none" data-search="定存 續存 到期日未更新 Richart">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">定存續存到期日未更新問題</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">待處理；與追蹤中「Richart 定存到期日未更新問題」是否同一件，待他確認</td>
+        </tr>
+        <tr data-progress="" data-ticket="none" data-search="IN0800 card QA 驗測">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">IN0800 調整 card 檔 QA 驗測</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">待處理</td>
+        </tr>
+        <tr data-progress="" data-ticket="none" data-search="作服 臨櫃關懷 USER">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">作服臨櫃關懷需求</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">待 USER 確認需求</td>
+        </tr>
+        <tr class="is-new" data-progress="" data-ticket="none" data-search="續航 股利 階梯利率 專案">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">調整續航及股利專案階梯利率<span class="new-tag">2026-11-17 新增</span></td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">預計 1 月底前上線（2026-11-17 他親口說新增）</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="empty">沒有符合篩選的項目。</div>
+  </section>
+
+  <!-- 追蹤中 -->
+  <section id="tracking" data-section="tracking">
+    <div class="sec-head"><h2>追蹤中</h2><span class="hint">未出現在最新摘要信，待確認</span><span class="count">6 項</span></div>
+    <table class="table">
+      <thead><tr><th>單號</th><th>需求簡述</th><th>進度</th><th>備註</th></tr></thead>
+      <tbody>
+        <tr data-progress="" data-ticket="has" data-search="2611051003 資查單 信託 財產專戶">
+          <td data-label="單號"><span class="code">2611051003</span></td>
+          <td data-label="需求簡述" class="title-cell">資查單（信託財產專戶活／定存交易資料）</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中；本週表未列入</td>
+        </tr>
+        <tr data-progress="" data-ticket="none" data-search="Richart 定存 到期日未更新">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">Richart 定存到期日未更新問題</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中（10/29 查詢／處理）</td>
+        </tr>
+        <tr data-progress="" data-ticket="none" data-search="Richart 定存 中途解約 違約金">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">Richart 定存中途解約違約金異常</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中（10/28 查詢）</td>
+        </tr>
+        <tr data-progress="" data-ticket="none" data-search="R4 透支 待分配">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">R4 透支待分配不等於 0</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中（10/28 查詢）</td>
+        </tr>
+        <tr data-progress="" data-ticket="none" data-search="INRH 問題">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">INRH 問題</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中（10/27 查詢、確認）</td>
+        </tr>
+        <tr data-progress="" data-ticket="none" data-search="DBTM 支援">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">支援 DBTM 問題</td>
+          <td data-label="進度"><div class="progress"><span class="na">進度未填</span></div></td>
+          <td data-label="備註" class="note-cell">進行中（10/29、10/30 支援處理）</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="empty">沒有符合篩選的項目。</div>
+  </section>
+
+  <!-- 已完成・已結案 -->
+  <section id="done" data-section="done">
+    <div class="sec-head"><h2>已完成・已結案</h2><span class="count">3 項</span></div>
+    <table class="table">
+      <thead><tr><th>單號</th><th>需求簡述</th><th>進度</th><th>備註</th></tr></thead>
+      <tbody>
+        <tr data-progress="100" data-ticket="none" data-search="資訊資產盤點">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">資訊資產盤點</td>
+          <td data-label="進度"><div class="progress"><div class="bar"><i style="width:100%"></i></div><b>100%</b><span class="stage">結案</span></div></td>
+          <td data-label="備註" class="note-cell">—</td>
+        </tr>
+        <tr data-progress="100" data-ticket="none" data-search="eMBO">
+          <td data-label="單號"><span class="code none">無單號</span></td>
+          <td data-label="需求簡述" class="title-cell">eMBO</td>
+          <td data-label="進度"><div class="progress"><div class="bar"><i style="width:100%"></i></div><b>100%</b><span class="stage">結案</span></div></td>
+          <td data-label="備註" class="note-cell">—</td>
+        </tr>
+        <tr data-progress="100" data-ticket="has" data-search="2610051067 低度久未往來 客戶資料 結案">
+          <td data-label="單號"><span class="code">2610051067</span></td>
+          <td data-label="需求簡述" class="title-cell">低度久未往來客戶資料撈取</td>
+          <td data-label="進度"><div class="progress"><div class="bar"><i style="width:100%"></i></div><b>100%</b><span class="stage">結案</span></div></td>
+          <td data-label="備註" class="note-cell">已結案</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="empty">沒有符合篩選的項目。</div>
+  </section>
+
+  <footer>
+    <span>資料來源：2026-11-09 工作摘要信、工作日誌與本人確認（與 Space 版同一份控管清單）</span>
+    <span>最後更新：2026-11-17</span>
+  </footer>
+
+</div>
+<script>
+(function(){
+  var q = document.getElementById('q');
+  var matchedBox = document.getElementById('matched');
+  var matchedText = document.getElementById('matchedText');
+  var clearBtn = document.getElementById('clearFilters');
+  var sections = Array.prototype.slice.call(document.querySelectorAll('[data-section]'));
+  var allRows = Array.prototype.slice.call(document.querySelectorAll('tbody tr'));
+  var state = { section:'all', progress:'all', ticket:'all' };
+
+  function filtersActive(){
+    return state.section!=='all' || state.progress!=='all' || state.ticket!=='all' || (q.value||'').trim()!=='';
+  }
+  function rowMatches(row){
+    var keyword = (q.value||'').trim().toLowerCase();
+    if(keyword){
+      var hay = ((row.getAttribute('data-search')||'') + ' ' + row.textContent).toLowerCase();
+      if(hay.indexOf(keyword)===-1) return false;
+    }
+    var p = row.getAttribute('data-progress');
+    if(state.progress==='unfilled' && p!=='') return false;
+    if(state.progress==='inprogress' && !(p!=='' && Number(p)<100)) return false;
+    if(state.progress==='done' && p!=='100') return false;
+    if(state.ticket!=='all' && row.getAttribute('data-ticket')!==state.ticket) return false;
+    return true;
+  }
+  function apply(){
+    var matched = 0;
+    sections.forEach(function(sec){
+      var showSection = (state.section==='all' || sec.getAttribute('data-section')===state.section);
+      var visible = 0;
+      sec.querySelectorAll('tbody tr').forEach(function(row){
+        var show = showSection && rowMatches(row);
+        row.style.display = show ? '' : 'none';
+        if(show){ visible++; matched++; }
+      });
+      sec.style.display = showSection ? '' : 'none';
+      var empty = sec.querySelector('.empty');
+      if(empty) empty.style.display = (showSection && visible===0) ? 'block' : 'none';
+      var table = sec.querySelector('.table');
+      if(table) table.style.display = (showSection && visible===0) ? 'none' : '';
+    });
+    var active = filtersActive();
+    matchedBox.className = active ? 'matched on' : 'matched';
+    if(active) matchedText.textContent = '符合 ' + matched + ' / ' + allRows.length + ' 項';
+  }
+  function setChip(group, value){
+    document.querySelectorAll('.chip[data-group="'+group+'"]').forEach(function(c){
+      c.setAttribute('aria-pressed', c.getAttribute('data-value')===value ? 'true' : 'false');
+    });
+    state[group] = value;
+  }
+  q.addEventListener('input', apply);
+  document.querySelectorAll('.chip').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var group = chip.getAttribute('data-group');
+      var value = chip.getAttribute('data-value');
+      setChip(group, value);
+      apply();
+      if(group==='section' && value!=='all'){
+        var target = document.getElementById(value);
+        if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+      }
+    });
+  });
+  clearBtn.addEventListener('click', function(){
+    q.value = '';
+    setChip('section','all'); setChip('progress','all'); setChip('ticket','all');
+    apply();
+  });
+  apply();
+})();
+</script>
+</body>
+</html>
