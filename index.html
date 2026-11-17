@@ -266,9 +266,9 @@
   <p class="lede">與 Space 版相同的四區分法：<strong>處理中、待辦、追蹤中、已完成・已結案</strong>，快照共 27 項，每項只列一次。每項可直接標記完成、上下調整順序、編輯內容或刪除；待辦項目可拖曳到「處理中」區塊，或在「編輯」裡改區段移過去。也可以用下方「新增工作項目」加入新項目。改完按下方按鈕匯出 JSON 檔傳回，即可對照更新 Space 與控管檔。</p>
 
   <div class="stats" aria-label="各區概況">
-    <div class="stat"><b id="stat-thisweek">7</b><span>處理中</span></div>
+    <div class="stat"><b id="stat-thisweek">6</b><span>處理中</span></div>
     <div class="stat"><b id="stat-todo">3</b><span>待辦<span id="stat-todo-new">（含 <em>1 項新增</em>）</span></span></div>
-    <div class="stat"><b id="stat-tracking">6</b><span>追蹤中</span></div>
+    <div class="stat"><b id="stat-tracking">7</b><span>追蹤中</span></div>
     <div class="stat"><b id="stat-done">11</b><span>已完成・已結案</span></div>
   </div>
 
@@ -309,9 +309,9 @@
     <div class="filter-row" role="group" aria-label="依區段篩選">
       <span class="filter-label">區段</span>
       <button class="chip" data-group="section" data-value="all" aria-pressed="true">全部</button>
-      <button class="chip" data-group="section" data-value="thisweek" aria-pressed="false">處理中<span class="n" data-count="thisweek">7</span></button>
+      <button class="chip" data-group="section" data-value="thisweek" aria-pressed="false">處理中<span class="n" data-count="thisweek">6</span></button>
       <button class="chip" data-group="section" data-value="todo" aria-pressed="false">待辦<span class="n" data-count="todo">3</span></button>
-      <button class="chip" data-group="section" data-value="tracking" aria-pressed="false">追蹤中<span class="n" data-count="tracking">6</span></button>
+      <button class="chip" data-group="section" data-value="tracking" aria-pressed="false">追蹤中<span class="n" data-count="tracking">7</span></button>
       <button class="chip" data-group="section" data-value="done" aria-pressed="false">已完成・已結案<span class="n" data-count="done">11</span></button>
     </div>
     <div class="filter-row" role="group" aria-label="依進度篩選">
@@ -389,7 +389,6 @@
   /* 原始快照：2026-11-17，共 27 項（使用者 2026-11-17 17:22 自本頁匯出的 JSON 狀態）。progress 為 '' 表示未填；日期欄位為 'YYYY-MM-DD' 或 ''。 */
   var DEFAULT_ITEMS = [
     /* 處理中（key: thisweek） */
-    { id:'u-mwkdwnvd1wal', section:'thisweek', code:'', title:'VIP 選號流程', progress:'', note:'分行可以用 31419 自行查詢所有分行用到哪一號，跟我們說要保留的帳號，我們再檔變(XREF、...))', isNew:false, completed:false, added:true, startDate:'2026-11-17', deadline:'2026-11-20', actualStart:'', actualEnd:'' },
     { id:'u-mwkf14ij1g6z', section:'thisweek', code:'', title:'處理 INOD 資轉，應收利息去除小數位作業', progress:'', note:'', isNew:false, completed:false, added:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
     { id:'u-mwkhgz8z19sl', section:'thisweek', code:'', title:'撰寫定存資轉TS', progress:'', note:'', isNew:false, completed:false, added:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
     { id:'w1', section:'thisweek', code:'2507151094', title:'合併案相關事項', progress:'', note:'', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
@@ -407,6 +406,7 @@
     { id:'t3', section:'tracking', code:'', title:'無法列印存款餘額證明問題', progress:'', note:'待處理', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
     { id:'t1', section:'tracking', code:'', title:'作服需求：外僑扣憑檔傳輸廠商列印', progress:'', note:'目前處理情形：預計 2027 年開始開發', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
     { id:'t6', section:'tracking', code:'', title:'作服臨櫃關懷需求', progress:'', note:'待 USER 確認需求', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'u-mwkdwnvd1wal', section:'tracking', code:'', title:'VIP 選號流程', progress:'', note:'分行可以用 31419 自行查詢所有分行用到哪一號，跟我們說要保留的帳號，我們再檔變(XREF、...))', isNew:false, completed:false, added:true, startDate:'2026-11-17', deadline:'2026-11-20', actualStart:'', actualEnd:'' },
     /* 已完成・已結案 */
     { id:'d1', section:'done', code:'', title:'資訊資產盤點', progress:'100', note:'—', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
     { id:'d2', section:'done', code:'', title:'eMBO', progress:'100', note:'—', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
