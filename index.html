@@ -263,17 +263,17 @@
   </div>
 
   <h1>工作控管表</h1>
-  <p class="lede">與 Space 版相同的四區分法：<strong>處理中、待辦、追蹤中、已完成・已結案</strong>，快照共 27 項，每項只列一次。每項可直接標記完成、上下調整順序、編輯內容或刪除；待辦項目可拖曳到「處理中」區塊，或在「編輯」裡改區段移過去。也可以用下方「新增工作項目」加入新項目。改完按下方按鈕匯出 JSON 檔傳回，即可對照更新 Space 與控管檔。</p>
+  <p class="lede">與 Space 版相同的四區分法：<strong>處理中、待辦、追蹤中、已完成・已結案</strong>，快照共 26 項，每項只列一次。每項可直接標記完成、上下調整順序、編輯內容或刪除；待辦項目可拖曳到「處理中」區塊，或在「編輯」裡改區段移過去。也可以用下方「新增工作項目」加入新項目。改完按下方按鈕匯出 JSON 檔傳回，即可對照更新 Space 與控管檔。</p>
 
   <div class="stats" aria-label="各區概況">
-    <div class="stat"><b id="stat-thisweek">6</b><span>處理中</span></div>
+    <div class="stat"><b id="stat-thisweek">5</b><span>處理中</span></div>
     <div class="stat"><b id="stat-todo">3</b><span>待辦<span id="stat-todo-new">（含 <em>1 項新增</em>）</span></span></div>
     <div class="stat"><b id="stat-tracking">7</b><span>追蹤中</span></div>
     <div class="stat"><b id="stat-done">11</b><span>已完成・已結案</span></div>
   </div>
 
   <div class="toolbar">
-    <h2>在本頁編輯</h2>
+    <h2>5本頁編輯</h2>
     <p>「完成」、「↑」「↓」、「編輯」與「刪除」都在每一項的操作欄（刪除要按兩次確認）；新工作用「新增工作項目」加入，可選要放進哪個區段。改動只存在這台瀏覽器（localStorage），不會同步到 Space 或其他裝置；要交回更新時，匯出 JSON 檔傳給助理即可。</p>
     <div class="toolbar-row">
       <button type="button" class="btn primary" id="exportBtn">匯出變更檔（JSON）</button>
@@ -309,7 +309,7 @@
     <div class="filter-row" role="group" aria-label="依區段篩選">
       <span class="filter-label">區段</span>
       <button class="chip" data-group="section" data-value="all" aria-pressed="true">全部</button>
-      <button class="chip" data-group="section" data-value="thisweek" aria-pressed="false">處理中<span class="n" data-count="thisweek">6</span></button>
+      <button class="chip" data-group="section" data-value="thisweek" aria-pressed="false">處理中<span class="n" data-count="thisweek">5</span></button>
       <button class="chip" data-group="section" data-value="todo" aria-pressed="false">待辦<span class="n" data-count="todo">3</span></button>
       <button class="chip" data-group="section" data-value="tracking" aria-pressed="false">追蹤中<span class="n" data-count="tracking">7</span></button>
       <button class="chip" data-group="section" data-value="done" aria-pressed="false">已完成・已結案<span class="n" data-count="done">11</span></button>
@@ -394,7 +394,6 @@
     { id:'w1', section:'thisweek', code:'2507151094', title:'合併案相關事項', progress:'', note:'', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
     { id:'w5', section:'thisweek', code:'2507041017', title:'新壽即期支票聯行兌付（確認USER需求）', progress:'', note:'進行中', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
     { id:'w6', section:'thisweek', code:'', title:'處理存摺餘額不符無法補印存摺問題', progress:'10', note:'進行中', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
-    { id:'w8', section:'thisweek', code:'', title:'支存需求', progress:'', note:'進行中；11/09 11:00 日誌：確認支存需求（未出現在 11/09 信中）', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
     /* 待辦 */
     { id:'t7', section:'todo', code:'2611171021', title:'調整續航及股利專案階梯利率', progress:'', note:'預計 1 月底前上線', isNew:true, completed:false, startDate:'', deadline:'2027-01-22', actualStart:'', actualEnd:'' },
     { id:'k1', section:'todo', code:'2611051003', title:'資查單（信託財產專戶活／定存交易資料）', progress:'', note:'', isNew:false, completed:false, startDate:'2027-01-04', deadline:'2027-01-04', actualStart:'', actualEnd:'' },
