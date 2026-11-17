@@ -43,35 +43,34 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
   a{color:var(--accent)}
-  button,[role="button"]{min-height:40px}
-  .wrap{max-width:1080px;margin:0 auto;padding:20px 16px 56px}
+  .wrap{max-width:1200px;margin:0 auto;padding:16px 16px 40px}
 
   /* Header */
-  .topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
-  .snapshot{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;font-weight:700;letter-spacing:.02em;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--line);padding:7px 12px;border-radius:999px}
+  .topbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .snapshot{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;letter-spacing:.02em;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--line);padding:5px 11px;border-radius:999px}
   .snapshot i{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
-  .owner{font-size:.85rem;color:var(--ink-2)}
+  .owner{font-size:.84rem;color:var(--ink-2)}
   .owner strong{color:var(--ink)}
-  h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:clamp(1.9rem,5vw,2.7rem);line-height:1.15;margin:6px 0 8px;letter-spacing:.01em}
-  .lede{color:var(--ink-2);font-size:.98rem;max-width:680px;margin:0 0 20px}
+  h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:clamp(1.55rem,4vw,2.05rem);line-height:1.2;margin:2px 0 6px;letter-spacing:.01em}
+  .lede{color:var(--ink-2);font-size:.9rem;max-width:860px;margin:0 0 14px;line-height:1.55}
   .lede strong{color:var(--ink)}
 
   /* Stats */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
   @media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr)}}
-  .stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
-  .stat b{display:block;font-size:1.7rem;line-height:1;font-weight:900;letter-spacing:-.02em}
-  .stat span{display:block;margin-top:6px;font-size:.82rem;color:var(--ink-2);font-weight:500}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 14px;box-shadow:var(--shadow);display:flex;align-items:baseline;gap:9px}
+  .stat b{font-size:1.35rem;line-height:1;font-weight:900;letter-spacing:-.02em}
+  .stat span{font-size:.82rem;color:var(--ink-2);font-weight:500}
   .stat em{font-style:normal;color:var(--accent);font-weight:700}
 
   /* Toolbar */
-  .toolbar{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);margin-bottom:18px}
+  .toolbar{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;box-shadow:var(--shadow);margin-bottom:12px}
   .toolbar-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-  .toolbar h2{margin:0 0 4px;font-size:.92rem;font-weight:900}
-  .toolbar p{margin:0 0 12px;font-size:.84rem;color:var(--ink-2)}
-  .btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-weight:700;font-size:.88rem;padding:8px 14px;border-radius:10px;cursor:pointer;min-height:40px}
+  .toolbar h2{margin:0 0 2px;font-size:.88rem;font-weight:900}
+  .toolbar p{margin:0 0 9px;font-size:.82rem;color:var(--ink-2);line-height:1.5}
+  .btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-weight:700;font-size:.86rem;padding:6px 13px;border-radius:9px;cursor:pointer;min-height:36px}
   .btn:hover{border-color:var(--accent)}
   .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
   @media(prefers-color-scheme:dark){.btn.primary{color:#0b1512}}
@@ -84,99 +83,137 @@
   .toast{display:none;margin-top:10px;font-size:.85rem;color:var(--accent-ink);background:var(--accent-soft);border:1px solid var(--line);border-radius:8px;padding:8px 12px}
   .toast.on{display:block}
 
+  /* Add-item form */
+  .add-form{display:none;margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+  .add-form.on{display:block}
+  .add-form h3{margin:0 0 8px;font-size:.88rem;font-weight:900}
+  .add-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:8px 12px}
+  @media(max-width:760px){.add-grid{grid-template-columns:1fr}}
+  .add-actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+
   /* Controls */
-  .controls{position:sticky;top:0;z-index:20;background:var(--bg);padding:10px 0 12px;margin-bottom:6px}
-  .search{display:flex;gap:8px;margin-bottom:10px}
-  .search input{flex:1;min-height:44px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;padding:0 14px;font-size:.95rem;font-family:inherit;outline:none}
+  .controls{position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 0 9px;margin-bottom:2px}
+  .search{display:flex;gap:8px;margin-bottom:7px}
+  .search input{flex:1;min-height:38px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:9px;padding:0 13px;font-size:.92rem;font-family:inherit;outline:none}
   .search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-  .filter-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+  .filter-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
   .filter-row:last-child{margin-bottom:0}
-  .filter-label{width:2.2rem;flex:none;font-size:.84rem;color:var(--ink-2);font-weight:500}
-  .chip{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-family:inherit;font-weight:700;font-size:.86rem;padding:8px 14px;border-radius:999px;cursor:pointer;min-height:40px}
+  .filter-label{width:2.2rem;flex:none;font-size:.82rem;color:var(--ink-2);font-weight:500}
+  .chip{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-family:inherit;font-weight:700;font-size:.82rem;padding:5px 11px;border-radius:999px;cursor:pointer;min-height:32px}
   .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
   @media(prefers-color-scheme:dark){.chip[aria-pressed="true"]{background:var(--ink);color:#101512}}
   .chip .n{font-variant-numeric:tabular-nums;font-weight:500;font-size:.78rem;opacity:.75;margin-left:4px}
-  .matched{display:none;align-items:center;gap:14px;margin-top:10px;font-size:.88rem;color:var(--ink-2)}
+  .matched{display:none;align-items:center;gap:14px;margin-top:8px;font-size:.86rem;color:var(--ink-2)}
   .matched.on{display:flex}
-  .matched button{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:.84rem;font-weight:700;padding:6px 12px;border-radius:8px;cursor:pointer;min-height:40px}
+  .matched button{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-family:inherit;font-size:.82rem;font-weight:700;padding:5px 11px;border-radius:8px;cursor:pointer;min-height:32px}
 
   /* Milestone */
-  .milestone{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);margin-bottom:22px}
-  .milestone h2{margin:0 0 4px;font-size:.92rem;font-weight:900}
-  .milestone p{margin:0 0 12px;font-size:.84rem;color:var(--ink-2)}
+  .milestone{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;box-shadow:var(--shadow);margin-bottom:16px}
+  .milestone h2{margin:0 0 2px;font-size:.88rem;font-weight:900}
+  .milestone p{margin:0 0 8px;font-size:.82rem;color:var(--ink-2)}
   .track{display:flex;gap:4px;flex-wrap:wrap}
-  .step{flex:1 1 90px;background:var(--surface-2);border-radius:8px;padding:8px 10px;text-align:center}
-  .step b{display:block;font-size:.95rem}
-  .step span{font-size:.76rem;color:var(--ink-2);font-weight:500}
+  .step{flex:1 1 80px;background:var(--surface-2);border-radius:7px;padding:5px 8px;text-align:center}
+  .step b{display:block;font-size:.88rem;line-height:1.3}
+  .step span{font-size:.74rem;color:var(--ink-2);font-weight:500}
 
   /* Sections */
-  section{margin-bottom:28px;scroll-margin-top:150px}
-  .sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 12px;margin-bottom:4px}
-  .sec-head h2{font-family:"Noto Serif TC",serif;font-size:1.35rem;font-weight:900;margin:0}
-  .sec-head .period{font-size:.86rem;color:var(--ink-2);font-weight:500}
-  .sec-head .hint{font-size:.8rem;color:var(--ink-3)}
-  .sec-head .count{margin-left:auto;font-size:.82rem;font-weight:700;color:var(--ink-3)}
+  section{margin-bottom:20px;scroll-margin-top:132px}
+  .sec-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 10px;margin-bottom:5px}
+  .sec-head h2{font-family:"Noto Serif TC",serif;font-size:1.18rem;font-weight:900;margin:0}
+  .sec-head .period{font-size:.83rem;color:var(--ink-2);font-weight:500}
+  .sec-head .hint{font-size:.78rem;color:var(--ink-3)}
+  .sec-head .count{margin-left:auto;font-size:.8rem;font-weight:700;color:var(--ink-3)}
 
-  /* Table -> cards */
-  .table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-  .table th,.table td{text-align:left;vertical-align:top;padding:13px 14px;border-bottom:1px solid var(--line)}
-  .table thead th{font-size:.78rem;letter-spacing:.06em;color:var(--ink-3);font-weight:700;background:var(--surface-2);white-space:nowrap}
+  /* Table — compact rows: one slim line per item on desktop */
+  .table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);table-layout:fixed}
+  .table th,.table td{text-align:left;vertical-align:middle;padding:7px 10px;border-bottom:1px solid var(--line)}
+  .table thead th{font-size:.74rem;letter-spacing:.06em;color:var(--ink-3);font-weight:700;background:var(--surface-2);white-space:nowrap;padding-top:6px;padding-bottom:6px}
+  .table th:nth-child(1){width:104px}
+  .table th:nth-child(3){width:148px}
+  .table th:nth-child(4){width:102px}
+  .table th:nth-child(5){width:23%}
+  .table th:nth-child(6){width:248px}
+  .deadline-cell{font-variant-numeric:tabular-nums;font-size:.83rem;white-space:nowrap}
+  .deadline-cell .na{color:var(--ink-3);font-size:.8rem}
+  .deadline-cell.overdue{color:var(--danger);font-weight:700}
   .table tbody tr:last-child td{border-bottom:none}
   .table tbody tr{transition:background .12s}
+  .table tbody tr:nth-child(even){background:color-mix(in srgb,var(--surface-2) 38%,transparent)}
   .table tbody tr:hover{background:var(--surface-2)}
-  .table tbody tr.editing{background:var(--accent-soft)}
+  .table tbody tr.editing{background:var(--accent-soft);vertical-align:top}
+  .table tbody tr.editing td{vertical-align:top}
   .table tbody tr.editing:hover{background:var(--accent-soft)}
-  .code{font-variant-numeric:tabular-nums;font-weight:700;font-size:.88rem;white-space:nowrap}
-  .code.none{color:var(--ink-3);font-weight:500}
-  .title-cell{font-weight:600;font-size:.95rem;min-width:220px}
-  .is-new{border-left:3px solid var(--accent) !important}
-  .new-tag{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.04em;color:var(--accent-ink);background:var(--accent-soft);padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:2px;white-space:nowrap}
-  .done-tag{display:inline-block;font-size:.72rem;font-weight:900;letter-spacing:.04em;color:#fff;background:var(--accent);padding:2px 7px;border-radius:999px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+  .code{font-variant-numeric:tabular-nums;font-weight:700;font-size:.82rem;white-space:nowrap}
+  .code.none{color:var(--ink-3);font-weight:500;font-size:.8rem}
+  .title-cell{font-weight:600;font-size:.9rem;line-height:1.45}
+  .is-new td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+  .new-tag{display:inline-block;font-size:.68rem;font-weight:900;letter-spacing:.04em;color:var(--accent-ink);background:var(--accent-soft);padding:1px 6px;border-radius:999px;margin-left:6px;vertical-align:2px;white-space:nowrap}
+  .done-tag{display:inline-block;font-size:.68rem;font-weight:900;letter-spacing:.04em;color:#fff;background:var(--accent);padding:1px 6px;border-radius:999px;margin-left:6px;vertical-align:2px;white-space:nowrap}
   @media(prefers-color-scheme:dark){.done-tag{color:#0b1512}}
-  .note-cell{font-size:.88rem;color:var(--ink-2);min-width:180px;white-space:pre-wrap}
+  .note-cell{font-size:.83rem;line-height:1.45;color:var(--ink-2);white-space:pre-wrap}
 
-  .progress{display:flex;align-items:center;gap:10px;min-width:150px}
-  .bar{flex:1;height:8px;background:var(--surface-2);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+  .progress{display:flex;align-items:center;gap:6px}
+  .bar{flex:1;height:6px;background:var(--surface-2);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
   .bar i{display:block;height:100%;background:var(--accent);border-radius:999px}
-  .progress b{font-size:.9rem;font-variant-numeric:tabular-nums;min-width:38px}
-  .progress .stage{font-size:.8rem;color:var(--ink-2);white-space:nowrap}
-  .progress .na{color:var(--ink-3);font-size:.85rem}
+  .progress b{font-size:.84rem;font-variant-numeric:tabular-nums;min-width:34px}
+  .progress .stage{font-size:.75rem;color:var(--ink-2);white-space:nowrap}
+  .progress .na{color:var(--ink-3);font-size:.8rem}
 
-  /* Row actions */
-  .actions-cell{white-space:nowrap;width:1%}
-  .actions{display:flex;gap:6px;flex-wrap:wrap}
-  .act{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-family:inherit;font-weight:700;font-size:.8rem;padding:5px 10px;border-radius:8px;cursor:pointer;min-height:36px;line-height:1.2}
+  /* Row actions — single horizontal strip, never stacks */
+  .actions-cell{white-space:nowrap}
+  .actions{display:flex;gap:4px;flex-wrap:nowrap;align-items:center}
+  .act{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font-family:inherit;font-weight:700;font-size:.78rem;padding:3px 9px;border-radius:7px;cursor:pointer;min-height:30px;line-height:1.25;flex:none}
+  .act.icon{width:30px;padding:3px 0;text-align:center;font-size:.85rem}
   .act:hover{border-color:var(--accent);color:var(--ink)}
   .act.complete{color:var(--accent-ink);border-color:var(--accent);background:var(--accent-soft)}
+  .act.start{color:var(--accent-ink);border-style:dashed;border-color:var(--accent)}
+  .act.start:hover{background:var(--accent-soft)}
   .act.undo{color:var(--ink-2)}
-  .act[disabled]{opacity:.35;cursor:default}
+  .act[disabled]{opacity:.3;cursor:default}
   .act[disabled]:hover{border-color:var(--line);color:var(--ink-2)}
 
   /* Edit form */
-  .edit-input,.edit-select,.edit-area{width:100%;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:8px 10px;font-size:.9rem;font-family:inherit;outline:none}
+  .edit-input,.edit-select,.edit-area{width:100%;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:7px 9px;font-size:.88rem;font-family:inherit;outline:none}
   .edit-input:focus,.edit-select:focus,.edit-area:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-  .edit-area{min-height:64px;resize:vertical;line-height:1.5}
-  .edit-field{margin-bottom:8px}
+  .edit-area{min-height:56px;resize:vertical;line-height:1.45}
+  .edit-field{margin-bottom:7px}
   .edit-field:last-child{margin-bottom:0}
-  .edit-field label{display:block;font-size:.72rem;letter-spacing:.06em;color:var(--ink-3);font-weight:700;margin-bottom:3px}
-  .edit-actions{display:flex;gap:6px;flex-wrap:wrap}
+  .edit-field label{display:block;font-size:.7rem;letter-spacing:.06em;color:var(--ink-3);font-weight:700;margin-bottom:3px}
+  .edit-actions{display:flex;gap:5px;flex-wrap:nowrap}
 
-  .empty{display:none;background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius);padding:22px;text-align:center;color:var(--ink-2);font-size:.92rem}
+  .empty{display:none;background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:16px;text-align:center;color:var(--ink-2);font-size:.9rem}
 
-  footer{border-top:1px solid var(--line);padding-top:16px;margin-top:8px;font-size:.83rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+  footer{border-top:1px solid var(--line);padding-top:12px;margin-top:4px;font-size:.8rem;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:4px 18px;justify-content:space-between}
 
+  /* Drag & drop between sections */
+  .table tbody tr[draggable="true"]{cursor:grab}
+  .table tbody tr.dragging{opacity:.35}
+  .table tbody tr.drop-before td{box-shadow:inset 0 2px 0 var(--accent)}
+  .table tbody tr.drop-after td{box-shadow:inset 0 -2px 0 var(--accent)}
+  section.drop-target .table{outline:2px solid var(--accent);outline-offset:-1px}
+  section.drop-target .sec-head h2{color:var(--accent-ink)}
+
+  @media(max-width:900px){
+    .table th:nth-child(5){width:19%}
+    .table th:nth-child(6){width:240px}
+  }
   @media(max-width:760px){
     .table,.table thead,.table tbody,.table tr,.table td{display:block;width:100%}
     .table thead{display:none}
-    .table tr{padding:14px 14px 6px;border-bottom:1px solid var(--line)}
+    .table tr{padding:10px 12px 8px;border-bottom:1px solid var(--line)}
     .table tbody tr:last-child{border-bottom:none}
-    .table td{border:none;padding:0 0 8px;min-width:0 !important}
-    .table td::before{content:attr(data-label);display:block;font-size:.72rem;letter-spacing:.06em;color:var(--ink-3);font-weight:700;margin-bottom:2px}
-    .table td.actions-cell::before{display:none}
-    .title-cell{font-size:1rem}
+    .table tbody tr:nth-child(even){background:transparent}
+    .table td{border:none;padding:0 0 5px}
+    .table td::before{content:attr(data-label);display:inline-block;font-size:.7rem;letter-spacing:.04em;color:var(--ink-3);font-weight:700;margin-right:8px;vertical-align:1px}
+    .table td.title-cell::before,.table td.actions-cell::before{display:none}
+    .table td.title-cell{padding-bottom:3px}
+    .table td.actions-cell{padding-top:3px;padding-bottom:2px}
+    .title-cell{font-size:.95rem}
+    .progress{display:inline-flex;min-width:130px;vertical-align:middle}
     .controls{top:0}
-    section{scroll-margin-top:190px}
+    section{scroll-margin-top:176px}
     .save-state{margin-left:0;width:100%}
+    .stat{padding:8px 12px}
   }
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.table tbody tr{transition:none}}
 
@@ -198,10 +235,10 @@
   </div>
 
   <h1>工作控管表</h1>
-  <p class="lede">與 Space 版相同的四區分法：<strong>本週、待辦、追蹤中、已完成・已結案</strong>，共 24 項，每項只列一次。本週為 <strong>115/11/9–11/13</strong>。每項可直接標記完成、上下調整順序或編輯內容；改完按下方按鈕匯出 JSON 檔傳回，即可對照更新 Space 與控管檔。</p>
+  <p class="lede">與 Space 版相同的四區分法：<strong>處理中、待辦、追蹤中、已完成・已結案</strong>，快照共 24 項，每項只列一次。每項可直接標記完成、上下調整順序或編輯內容；待辦項目可拖曳到「處理中」區塊，或按「移到處理中」按鈕移過去。也可以用下方「新增工作項目」加入新項目。改完按下方按鈕匯出 JSON 檔傳回，即可對照更新 Space 與控管檔。</p>
 
   <div class="stats" aria-label="各區概況">
-    <div class="stat"><b id="stat-thisweek">8</b><span>本週</span></div>
+    <div class="stat"><b id="stat-thisweek">8</b><span>處理中</span></div>
     <div class="stat"><b id="stat-todo">7</b><span>待辦<span id="stat-todo-new">（含 <em>1 項新增</em>）</span></span></div>
     <div class="stat"><b id="stat-tracking">6</b><span>追蹤中</span></div>
     <div class="stat"><b id="stat-done">3</b><span>已完成・已結案</span></div>
@@ -209,12 +246,28 @@
 
   <div class="toolbar">
     <h2>在本頁編輯</h2>
-    <p>「完成」、「↑」「↓」與「編輯」都在每一項的操作欄。改動只存在這台瀏覽器（localStorage），不會同步到 Space 或其他裝置；要交回更新時，匯出 JSON 檔傳給助理即可。</p>
+    <p>「完成」、「↑」「↓」與「編輯」都在每一項的操作欄；新工作用「新增工作項目」加入，可選要放進哪個區段。改動只存在這台瀏覽器（localStorage），不會同步到 Space 或其他裝置；要交回更新時，匯出 JSON 檔傳給助理即可。</p>
     <div class="toolbar-row">
       <button type="button" class="btn primary" id="exportBtn">匯出變更檔（JSON）</button>
+      <button type="button" class="btn" id="addBtn" aria-expanded="false">＋ 新增工作項目</button>
       <button type="button" class="btn" id="resetBtn">還原成原始快照</button>
       <span class="save-state" id="saveState">目前顯示原始快照內容</span>
     </div>
+    <form class="add-form" id="addForm" novalidate>
+      <h3>新增工作項目</h3>
+      <div class="add-grid">
+        <div class="edit-field"><label for="addSection">區段</label><select class="edit-select" id="addSection"></select></div>
+        <div class="edit-field"><label for="addTitle">需求簡述（必填）</label><input class="edit-input" id="addTitle" type="text" placeholder="例如：撰寫定存資轉 TS"></div>
+        <div class="edit-field"><label for="addCode">單號（空白＝無單號）</label><input class="edit-input" id="addCode" type="text" inputmode="numeric"></div>
+        <div class="edit-field"><label for="addProgress">進度</label><select class="edit-select" id="addProgress"></select></div>
+        <div class="edit-field"><label for="addDeadline">完成期限（可留空）</label><input class="edit-input" id="addDeadline" type="date"></div>
+        <div class="edit-field"><label for="addNote">備註</label><input class="edit-input" id="addNote" type="text" placeholder="例如：待處理"></div>
+      </div>
+      <div class="add-actions">
+        <button type="submit" class="btn primary small">加入項目</button>
+        <button type="button" class="btn small" id="addCancel">取消</button>
+      </div>
+    </form>
     <div class="toast" id="toast" role="status"></div>
   </div>
 
@@ -225,7 +278,7 @@
     <div class="filter-row" role="group" aria-label="依區段篩選">
       <span class="filter-label">區段</span>
       <button class="chip" data-group="section" data-value="all" aria-pressed="true">全部</button>
-      <button class="chip" data-group="section" data-value="thisweek" aria-pressed="false">本週<span class="n" data-count="thisweek">8</span></button>
+      <button class="chip" data-group="section" data-value="thisweek" aria-pressed="false">處理中<span class="n" data-count="thisweek">8</span></button>
       <button class="chip" data-group="section" data-value="todo" aria-pressed="false">待辦<span class="n" data-count="todo">7</span></button>
       <button class="chip" data-group="section" data-value="tracking" aria-pressed="false">追蹤中<span class="n" data-count="tracking">6</span></button>
       <button class="chip" data-group="section" data-value="done" aria-pressed="false">已完成・已結案<span class="n" data-count="done">3</span></button>
@@ -279,8 +332,8 @@
   var SNAPSHOT_DATE = '2026-11-17';
 
   var SECTIONS = [
-    { key:'thisweek', label:'本週', period:'115/11/9 – 115/11/13', hint:'' },
-    { key:'todo', label:'待辦', period:'', hint:'' },
+    { key:'thisweek', label:'處理中', period:'', hint:'' },
+    { key:'todo', label:'待辦', period:'', hint:'可拖曳到「處理中」，或按「移到處理中」' },
     { key:'tracking', label:'追蹤中', period:'', hint:'未出現在最新摘要信，待確認' },
     { key:'done', label:'已完成・已結案', period:'', hint:'' }
   ];
@@ -304,7 +357,7 @@
 
   /* 原始快照：2026-11-17，共 24 項。progress 為 '' 表示未填。 */
   var DEFAULT_ITEMS = [
-    /* 本週 */
+    /* 處理中（key: thisweek） */
     { id:'w1', section:'thisweek', code:'2507151094', title:'合併案相關事項（R4、平測三相關事項）', progress:'', note:'進行中', isNew:false, completed:false },
     { id:'w2', section:'thisweek', code:'2507151094', title:'執行XREF匯出作業', progress:'', note:'進行中；11/09 10:00 日誌：準備執行XREF匯出作業', isNew:false, completed:false },
     { id:'w3', section:'thisweek', code:'', title:'查詢Richart 定存無法解約問題', progress:'', note:'進行中', isNew:false, completed:false },
@@ -334,6 +387,9 @@
     { id:'d3', section:'done', code:'2610051067', title:'低度久未往來客戶資料撈取', progress:'100', note:'已結案', isNew:false, completed:true }
   ];
 
+  /* 完成期限：現有 24 項皆未設定，統一補上空字串欄位（'YYYY-MM-DD' 或 ''） */
+  DEFAULT_ITEMS.forEach(function(it){ it.deadline = ''; });
+
   function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
 
   function loadItems(){
@@ -341,11 +397,27 @@
       var raw = window.localStorage.getItem(STORAGE_KEY);
       if(!raw) return clone(DEFAULT_ITEMS);
       var parsed = JSON.parse(raw);
-      if(!parsed || !Array.isArray(parsed.items) || parsed.items.length!==DEFAULT_ITEMS.length) return clone(DEFAULT_ITEMS);
-      /* 只接受與快照相同的 id 集合，避免舊版資料混入 */
-      var ids = {};
-      DEFAULT_ITEMS.forEach(function(it){ ids[it.id]=true; });
-      for(var i=0;i<parsed.items.length;i++){ if(!ids[parsed.items[i].id]) return clone(DEFAULT_ITEMS); }
+      if(!parsed || !Array.isArray(parsed.items) || parsed.items.length<DEFAULT_ITEMS.length) return clone(DEFAULT_ITEMS);
+      /* 快照的 24 個 id 必須都在；額外的項目只接受本頁新增的 u- 開頭 id，避免舊版資料混入 */
+      var seen = {};
+      for(var i=0;i<parsed.items.length;i++){
+        var pid = parsed.items[i] && parsed.items[i].id;
+        if(typeof pid!=='string' || seen[pid]) return clone(DEFAULT_ITEMS);
+        seen[pid] = true;
+      }
+      for(var j=0;j<DEFAULT_ITEMS.length;j++){ if(!seen[DEFAULT_ITEMS[j].id]) return clone(DEFAULT_ITEMS); }
+      parsed.items.forEach(function(it){
+        if(typeof it.deadline!=='string') it.deadline='';
+        if(typeof it.code!=='string') it.code='';
+        if(typeof it.title!=='string') it.title='';
+        if(typeof it.note!=='string') it.note='';
+        if(typeof it.progress!=='string') it.progress='';
+        it.completed = !!it.completed;
+        it.isNew = !!it.isNew;
+        it.added = !!it.added || (it.id.indexOf('u-')===0);
+        var okSection = SECTIONS.some(function(s){ return s.key===it.section; });
+        if(!okSection) it.section = 'todo';
+      });
       return parsed.items;
     }catch(e){ return clone(DEFAULT_ITEMS); }
   }
@@ -369,8 +441,14 @@
     });
   }
 
+  function canon(list){
+    return JSON.stringify(list.map(function(it){
+      return [it.id, it.section, it.code, it.title, it.progress, it.note, !!it.isNew, !!it.completed, !!it.added,
+        it.deadline || '', it.prevSection || '', (typeof it.prevProgress==='string' ? it.prevProgress : null)];
+    }));
+  }
   function isDirty(){
-    return JSON.stringify(items) !== JSON.stringify(DEFAULT_ITEMS);
+    return canon(items) !== canon(DEFAULT_ITEMS);
   }
 
   function persist(){
@@ -401,7 +479,25 @@
       return '<div class="progress"><span class="na">進度未填</span></div>';
     }
     var stage = STAGES[it.progress] ? '<span class="stage">'+esc(STAGES[it.progress])+'</span>' : '';
-    return '<div class="progress"><div class="bar"><i style="width:'+esc(it.progress)+'%">​</i></div><b>'+esc(it.progress)+'%</b>'+stage+'</div>';
+    return '<div class="progress"><div class="bar"><i style="width:'+esc(it.progress)+'%">'+'</i></div><b>'+esc(it.progress)+'%</b>'+stage+'</div>';
+  }
+
+  function deadlineHTML(it){
+    if(!it.deadline){
+      return '<span class="na">未設定</span>';
+    }
+    var now = new Date();
+    function pad(n){ return (n<10?'0':'') + n; }
+    var today = now.getFullYear() + '-' + pad(now.getMonth()+1) + '-' + pad(now.getDate());
+    var overdue = (!it.completed && it.deadline < today);
+    return '<span'+(overdue ? ' title="已超過期限"' : '')+'>'+esc(it.deadline)+'</span>';
+  }
+  function deadlineCellClass(it){
+    if(!it.deadline || it.completed) return 'deadline-cell';
+    var now = new Date();
+    function pad(n){ return (n<10?'0':'') + n; }
+    var today = now.getFullYear() + '-' + pad(now.getMonth()+1) + '-' + pad(now.getDate());
+    return it.deadline < today ? 'deadline-cell overdue' : 'deadline-cell';
   }
 
   function progressSelectHTML(current){
@@ -427,6 +523,7 @@
     if(it.isNew) classes.push('is-new');
     if(isEditing) classes.push('editing');
     var trAttrs = ' data-id="'+it.id+'" data-progress="'+esc(it.progress)+'" data-ticket="'+(it.code?'has':'none')+'" data-search="'+searchText+'"'
+      + (isEditing ? '' : ' draggable="true" title="可拖曳到其他區塊"')
       + (classes.length ? ' class="'+classes.join(' ')+'"' : '');
 
     if(isEditing){
@@ -435,6 +532,7 @@
         + '<div class="edit-field"><label>區段</label>'+sectionSelectHTML(it.section)+'</div></td>'
         + '<td data-label="需求簡述"><div class="edit-field"><label>需求簡述</label><textarea class="edit-area" data-field="title" rows="3">'+esc(it.title)+'</textarea></div></td>'
         + '<td data-label="進度"><div class="edit-field"><label>進度</label>'+progressSelectHTML(it.progress)+'</div></td>'
+        + '<td data-label="完成期限"><div class="edit-field"><label>完成期限（可留空）</label><input class="edit-input" data-field="deadline" type="date" value="'+esc(it.deadline || '')+'"></div></td>'
         + '<td data-label="備註"><div class="edit-field"><label>備註</label><textarea class="edit-area" data-field="note" rows="3">'+esc(it.note)+'</textarea></div></td>'
         + '<td class="actions-cell"><div class="edit-actions">'
         + '<button type="button" class="act complete" data-act="save">儲存</button>'
@@ -443,21 +541,25 @@
     }
 
     var titleHTML = esc(it.title)
-      + (it.isNew ? '<span class="new-tag">2026-11-17 新增</span>' : '')
+      + (it.added ? '<span class="new-tag">本頁新增</span>' : (it.isNew ? '<span class="new-tag">2026-11-17 新增</span>' : ''))
       + (it.completed ? '<span class="done-tag">已完成</span>' : '');
     var completeBtn = it.completed
       ? '<button type="button" class="act undo" data-act="uncomplete">取消完成</button>'
       : '<button type="button" class="act complete" data-act="complete">完成</button>';
+    var startBtn = (it.section==='todo')
+      ? '<button type="button" class="act start" data-act="start">移到處理中</button>' : '';
 
     return '<tr'+trAttrs+'>'
       + '<td data-label="單號">'+(it.code ? '<span class="code">'+esc(it.code)+'</span>' : '<span class="code none">無單號</span>')+'</td>'
       + '<td data-label="需求簡述" class="title-cell">'+titleHTML+'</td>'
       + '<td data-label="進度">'+progressHTML(it)+'</td>'
+      + '<td data-label="完成期限" class="'+deadlineCellClass(it)+'">'+deadlineHTML(it)+'</td>'
       + '<td data-label="備註" class="note-cell">'+esc(it.note)+'</td>'
       + '<td class="actions-cell"><div class="actions">'
+      + startBtn
       + completeBtn
-      + '<button type="button" class="act" data-act="up" aria-label="上移"'+(idxInSection===0?' disabled':'')+'>↑</button>'
-      + '<button type="button" class="act" data-act="down" aria-label="下移"'+(idxInSection===sectionCount-1?' disabled':'')+'>↓</button>'
+      + '<button type="button" class="act icon" data-act="up" aria-label="上移" title="上移"'+(idxInSection===0?' disabled':'')+'>↑</button>'
+      + '<button type="button" class="act icon" data-act="down" aria-label="下移" title="下移"'+(idxInSection===sectionCount-1?' disabled':'')+'>↓</button>'
       + '<button type="button" class="act" data-act="edit">編輯</button>'
       + '</div></td></tr>';
   }
@@ -471,7 +573,7 @@
         + (sec.period ? '<span class="period">'+sec.period+'</span>' : '')
         + (sec.hint ? '<span class="hint">'+sec.hint+'</span>' : '')
         + '<span class="count">'+list.length+' 項</span></div>'
-        + '<table class="table"><thead><tr><th>單號</th><th>需求簡述</th><th>進度</th><th>備註</th><th>操作</th></tr></thead><tbody>';
+        + '<table class="table"><thead><tr><th>單號</th><th>需求簡述</th><th>進度</th><th>完成期限</th><th>備註</th><th>操作</th></tr></thead><tbody>';
       list.forEach(function(it, i){ html += rowHTML(it, i, list.length); });
       html += '</tbody></table><div class="empty">沒有符合篩選的項目。</div></section>';
     });
@@ -570,6 +672,31 @@
     items[a] = other; items[b] = it;
     render();
   }
+  /* 跨區段移動：beforeItem 為插入位置（null＝放到該區段最後）。進度與備註不變。 */
+  function moveItemToSection(it, targetSection, beforeItem, afterItem){
+    if(beforeItem===it || afterItem===it) return;
+    var fromSection = it.section;
+    items.splice(items.indexOf(it), 1);
+    it.section = targetSection;
+    if(targetSection==='done' && !it.completed){
+      it.prevSection = fromSection; it.prevProgress = it.progress;
+      it.completed = true; it.progress = '100';
+    }else if(targetSection!=='done' && it.completed){
+      it.completed = false; it.progress = '';
+      delete it.prevSection; delete it.prevProgress;
+    }
+    if(beforeItem && items.indexOf(beforeItem)>-1){
+      items.splice(items.indexOf(beforeItem), 0, it);
+    }else if(afterItem && items.indexOf(afterItem)>-1){
+      items.splice(items.indexOf(afterItem)+1, 0, it);
+    }else{
+      items.push(it);
+    }
+    render();
+    if(fromSection!==targetSection){
+      showToast('「' + it.title + '」已移到「' + sectionLabel(targetSection) + '」。');
+    }
+  }
   function markComplete(it){
     it.prevSection = it.section;
     it.prevProgress = it.progress;
@@ -596,10 +723,12 @@
     var code = row.querySelector('[data-field="code"]').value.trim();
     var title = row.querySelector('[data-field="title"]').value.trim();
     var progress = row.querySelector('[data-field="progress"]').value;
+    var deadlineEl = row.querySelector('[data-field="deadline"]');
+    var deadline = deadlineEl ? deadlineEl.value : '';
     var note = row.querySelector('[data-field="note"]').value.trim();
     var newSection = row.querySelector('[data-field="section"]').value;
     if(title===''){ showToast('需求簡述不能空白，已取消這次編輯。'); editingId = null; render(); return; }
-    it.code = code; it.title = title; it.progress = progress; it.note = note;
+    it.code = code; it.title = title; it.progress = progress; it.note = note; it.deadline = deadline;
     it.completed = (progress==='100');
     if(it.section !== newSection){
       items.splice(items.indexOf(it), 1);
@@ -620,6 +749,7 @@
     var act = btn.getAttribute('data-act');
     if(act==='up') moveWithinSection(it, -1);
     else if(act==='down') moveWithinSection(it, 1);
+    else if(act==='start') moveItemToSection(it, 'thisweek', null, null);
     else if(act==='complete') markComplete(it);
     else if(act==='uncomplete') markUncomplete(it);
     else if(act==='edit'){ editingId = it.id; render(); }
@@ -627,7 +757,127 @@
     else if(act==='save'){ saveEdit(row, it); }
   });
 
-  /* 匯出 JSON：全部 24 項的最新狀態，依區段與區段內順序排列 */
+  /* 拖曳：在區段之間移動（桌機 HTML5 drag & drop；手機改用「移到處理中」按鈕） */
+  var dragId = null;
+  function clearDragMarks(){
+    sectionsEl.querySelectorAll('tr.dragging').forEach(function(r){ r.classList.remove('dragging'); });
+    sectionsEl.querySelectorAll('tr.drop-before').forEach(function(r){ r.classList.remove('drop-before'); });
+    sectionsEl.querySelectorAll('tr.drop-after').forEach(function(r){ r.classList.remove('drop-after'); });
+    sectionsEl.querySelectorAll('section.drop-target').forEach(function(s){ s.classList.remove('drop-target'); });
+  }
+  sectionsEl.addEventListener('dragstart', function(ev){
+    var row = ev.target.closest ? ev.target.closest('tr[data-id]') : null;
+    if(!row || editingId) return;
+    dragId = row.getAttribute('data-id');
+    if(ev.dataTransfer){
+      ev.dataTransfer.effectAllowed = 'move';
+      try{ ev.dataTransfer.setData('text/plain', dragId); }catch(e){}
+    }
+    row.classList.add('dragging');
+  });
+  sectionsEl.addEventListener('dragover', function(ev){
+    if(!dragId) return;
+    ev.preventDefault();
+    if(ev.dataTransfer) ev.dataTransfer.dropEffect = 'move';
+    var sec = ev.target.closest ? ev.target.closest('[data-section]') : null;
+    sectionsEl.querySelectorAll('section.drop-target').forEach(function(s){ if(s!==sec) s.classList.remove('drop-target'); });
+    if(sec) sec.classList.add('drop-target');
+    var row = ev.target.closest ? ev.target.closest('tr[data-id]') : null;
+    sectionsEl.querySelectorAll('tr.drop-before').forEach(function(r){ if(r!==row) r.classList.remove('drop-before'); });
+    sectionsEl.querySelectorAll('tr.drop-after').forEach(function(r){ if(r!==row) r.classList.remove('drop-after'); });
+    if(row && row.getAttribute('data-id')!==dragId){
+      var rect = row.getBoundingClientRect();
+      var after = (ev.clientY - rect.top) > rect.height/2;
+      row.classList.toggle('drop-after', after);
+      row.classList.toggle('drop-before', !after);
+    }
+  });
+  sectionsEl.addEventListener('drop', function(ev){
+    if(!dragId) return;
+    ev.preventDefault();
+    var it = findItem(dragId);
+    var sec = ev.target.closest ? ev.target.closest('[data-section]') : null;
+    dragId = null;
+    if(!it || !sec){ clearDragMarks(); return; }
+    var targetSection = sec.getAttribute('data-section');
+    var row = ev.target.closest ? ev.target.closest('tr[data-id]') : null;
+    var before = null, after = null;
+    if(row && row.getAttribute('data-id')!==it.id){
+      var target = findItem(row.getAttribute('data-id'));
+      if(target){
+        var rect = row.getBoundingClientRect();
+        if((ev.clientY - rect.top) > rect.height/2) after = target; else before = target;
+      }
+    }
+    clearDragMarks();
+    moveItemToSection(it, targetSection, before, after);
+  });
+  sectionsEl.addEventListener('dragend', function(){
+    dragId = null;
+    clearDragMarks();
+  });
+
+  /* 新增工作項目 */
+  var addBtn = document.getElementById('addBtn');
+  var addForm = document.getElementById('addForm');
+  var addSectionEl = document.getElementById('addSection');
+  var addProgressEl = document.getElementById('addProgress');
+  addSectionEl.innerHTML = SECTIONS.map(function(s){ return '<option value="'+s.key+'">'+s.label+'</option>'; }).join('');
+  addSectionEl.value = 'todo';
+  addProgressEl.innerHTML = PROGRESS_OPTIONS.map(function(o){ return '<option value="'+o.v+'">'+o.label+'</option>'; }).join('');
+  function setAddForm(open){
+    addForm.className = open ? 'add-form on' : 'add-form';
+    addBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if(open){
+      var t = document.getElementById('addTitle');
+      if(t) t.focus();
+    }
+  }
+  addBtn.addEventListener('click', function(){
+    setAddForm(addForm.className.indexOf(' on')===-1);
+  });
+  document.getElementById('addCancel').addEventListener('click', function(){ setAddForm(false); });
+  addForm.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    var title = document.getElementById('addTitle').value.trim();
+    if(title===''){ showToast('需求簡述是必填的，請先填上再加入。'); document.getElementById('addTitle').focus(); return; }
+    if(editingId){ showToast('有一項正在編輯中，請先儲存或取消，再新增項目。'); return; }
+    var progress = addProgressEl.value;
+    var section = addSectionEl.value;
+    var it = {
+      id: 'u-' + Date.now().toString(36) + Math.floor(Math.random()*100000).toString(36),
+      section: section,
+      code: document.getElementById('addCode').value.trim(),
+      title: title,
+      progress: progress,
+      note: document.getElementById('addNote').value.trim(),
+      isNew: false,
+      added: true,
+      completed: (progress==='100' || section==='done'),
+      deadline: document.getElementById('addDeadline').value || ''
+    };
+    if(section==='done' || progress==='100'){
+      it.section = 'done';
+      it.progress = '100';
+      it.completed = true;
+    }
+    items.push(it);
+    addForm.reset();
+    addSectionEl.value = 'todo';
+    addProgressEl.value = '';
+    setAddForm(false);
+    /* 若正篩選其他區段，先清掉篩選，讓新項目看得見 */
+    if(filters.section!=='all' && filters.section!==it.section){
+      q.value = '';
+      setChip('section','all'); setChip('progress','all'); setChip('ticket','all');
+    }
+    render();
+    showToast('已新增「' + it.title + '」到「' + sectionLabel(it.section) + '」（存於這台瀏覽器，記得匯出 JSON 交回）。');
+    var row = sectionsEl.querySelector('tr[data-id="'+it.id+'"]');
+    if(row) row.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  /* 匯出 JSON：全部項目的最新狀態（含本頁新增），依區段與區段內順序排列 */
   function buildExport(){
     var out = {
       artifact: '工作控管表（公開版）',
@@ -650,9 +900,11 @@
           title: it.title,
           progress: it.progress === '' ? null : Number(it.progress),
           progressLabel: it.progress === '' ? '進度未填' : (it.progress + '%' + (STAGES[it.progress] ? '（' + STAGES[it.progress] + '）' : '')),
+          deadline: it.deadline ? it.deadline : null,
           note: it.note,
           completed: !!it.completed,
-          isNew: !!it.isNew
+          isNew: !!it.isNew,
+          addedLocally: !!it.added
         });
       });
     });
