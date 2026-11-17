@@ -128,6 +128,9 @@
   .table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);table-layout:fixed}
   .table th,.table td{text-align:left;vertical-align:middle;padding:10px 10px;border-bottom:1px solid var(--line)}
   .table thead th{font-size:.74rem;letter-spacing:.06em;color:var(--ink-3);font-weight:700;background:var(--surface-2);white-space:nowrap;padding-top:6px;padding-bottom:6px}
+  /* 單號欄：10 碼單號（如 2611051003）需約 76px 文字寬＋左右 padding，
+     欄寬不足時 nowrap 的單號會溢出壓到需求簡述欄，兩欄黏在一起難讀，故給足 104px；
+     省下的寬度從操作欄扣（按鈕排得下 246px，必要時會在欄內換行）。 */
   .table th:nth-child(1){width:104px}
   .table th:nth-child(3){width:104px}
   .table th:nth-child(4){width:94px}
@@ -149,9 +152,8 @@
   .code{font-variant-numeric:tabular-nums;font-weight:700;font-size:.8rem;white-space:nowrap}
   .code.none{color:var(--ink-3);font-weight:500;font-size:.8rem}
   .title-cell{font-weight:600;font-size:.9rem;line-height:1.55}
-  @media(min-width:1181px){
-    .table td.title-cell{padding-left:16px}
-  }
+  /* 桌機表格版：需求簡述欄左側多留一點空隙，與單號欄拉開距離 */
+  @media(min-width:1181px){.table td.title-cell{padding-left:16px}}
   .is-new td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
   .new-tag{display:inline-block;font-size:.68rem;font-weight:900;letter-spacing:.04em;color:var(--accent-ink);background:var(--accent-soft);padding:1px 6px;border-radius:999px;margin-left:6px;vertical-align:2px;white-space:nowrap}
   .done-tag{display:inline-block;font-size:.68rem;font-weight:900;letter-spacing:.04em;color:#fff;background:var(--accent);padding:1px 6px;border-radius:999px;margin-left:6px;vertical-align:2px;white-space:nowrap}
@@ -261,13 +263,13 @@
   </div>
 
   <h1>工作控管表</h1>
-  <p class="lede">與 Space 版相同的四區分法：<strong>處理中、待辦、追蹤中、已完成・已結案</strong>，快照共 24 項，每項只列一次。每項可直接標記完成、上下調整順序、編輯內容或刪除；待辦項目可拖曳到「處理中」區塊，或在「編輯」裡改區段移過去。也可以用下方「新增工作項目」加入新項目。改完按下方按鈕匯出 JSON 檔傳回，即可對照更新 Space 與控管檔。</p>
+  <p class="lede">與 Space 版相同的四區分法：<strong>處理中、待辦、追蹤中、已完成・已結案</strong>，快照共 27 項，每項只列一次。每項可直接標記完成、上下調整順序、編輯內容或刪除；待辦項目可拖曳到「處理中」區塊，或在「編輯」裡改區段移過去。也可以用下方「新增工作項目」加入新項目。改完按下方按鈕匯出 JSON 檔傳回，即可對照更新 Space 與控管檔。</p>
 
   <div class="stats" aria-label="各區概況">
-    <div class="stat"><b id="stat-thisweek">8</b><span>處理中</span></div>
-    <div class="stat"><b id="stat-todo">7</b><span>待辦<span id="stat-todo-new">（含 <em>1 項新增</em>）</span></span></div>
+    <div class="stat"><b id="stat-thisweek">7</b><span>處理中</span></div>
+    <div class="stat"><b id="stat-todo">3</b><span>待辦<span id="stat-todo-new">（含 <em>1 項新增</em>）</span></span></div>
     <div class="stat"><b id="stat-tracking">6</b><span>追蹤中</span></div>
-    <div class="stat"><b id="stat-done">3</b><span>已完成・已結案</span></div>
+    <div class="stat"><b id="stat-done">11</b><span>已完成・已結案</span></div>
   </div>
 
   <div class="toolbar">
@@ -307,10 +309,10 @@
     <div class="filter-row" role="group" aria-label="依區段篩選">
       <span class="filter-label">區段</span>
       <button class="chip" data-group="section" data-value="all" aria-pressed="true">全部</button>
-      <button class="chip" data-group="section" data-value="thisweek" aria-pressed="false">處理中<span class="n" data-count="thisweek">8</span></button>
-      <button class="chip" data-group="section" data-value="todo" aria-pressed="false">待辦<span class="n" data-count="todo">7</span></button>
+      <button class="chip" data-group="section" data-value="thisweek" aria-pressed="false">處理中<span class="n" data-count="thisweek">7</span></button>
+      <button class="chip" data-group="section" data-value="todo" aria-pressed="false">待辦<span class="n" data-count="todo">3</span></button>
       <button class="chip" data-group="section" data-value="tracking" aria-pressed="false">追蹤中<span class="n" data-count="tracking">6</span></button>
-      <button class="chip" data-group="section" data-value="done" aria-pressed="false">已完成・已結案<span class="n" data-count="done">3</span></button>
+      <button class="chip" data-group="section" data-value="done" aria-pressed="false">已完成・已結案<span class="n" data-count="done">11</span></button>
     </div>
     <div class="filter-row" role="group" aria-label="依進度篩選">
       <span class="filter-label">進度</span>
@@ -384,40 +386,40 @@
     { v:'100', label:'100%（結案）' }
   ];
 
-  /* 原始快照：2026-11-17，共 24 項。progress 為 '' 表示未填。 */
+  /* 原始快照：2026-11-17，共 27 項（使用者 2026-11-17 17:22 自本頁匯出的 JSON 狀態）。progress 為 '' 表示未填；日期欄位為 'YYYY-MM-DD' 或 ''。 */
   var DEFAULT_ITEMS = [
     /* 處理中（key: thisweek） */
-    { id:'w1', section:'thisweek', code:'2507151094', title:'合併案相關事項（R4、平測三相關事項）', progress:'', note:'進行中', isNew:false, completed:false },
-    { id:'w2', section:'thisweek', code:'2507151094', title:'執行XREF匯出作業', progress:'', note:'進行中；11/09 10:00 日誌：準備執行XREF匯出作業', isNew:false, completed:false },
-    { id:'w3', section:'thisweek', code:'', title:'查詢Richart 定存無法解約問題', progress:'', note:'進行中', isNew:false, completed:false },
-    { id:'w4', section:'thisweek', code:'2610211036', title:'扣繳憑單作業（預先試跑驗證）', progress:'', note:'進行中；11/09 14:00、15:00 日誌：扣繳憑單作業問題處理、扣繳憑單作業', isNew:false, completed:false },
-    { id:'w5', section:'thisweek', code:'2507041017', title:'新壽即期支票聯行兌付（確認USER需求）', progress:'', note:'進行中', isNew:false, completed:false },
-    { id:'w6', section:'thisweek', code:'', title:'處理存摺餘額不符無法補印存摺問題', progress:'10', note:'進行中', isNew:false, completed:false },
-    { id:'w7', section:'thisweek', code:'2610151031', title:'Richart 大會員定存結清失敗（稅率代號錯誤）', progress:'', note:'進行中；2026-11-09 他確認仍處理中（未出現在 11/09 信中）', isNew:false, completed:false },
-    { id:'w8', section:'thisweek', code:'', title:'支存需求', progress:'', note:'進行中；11/09 11:00 日誌：確認支存需求（未出現在 11/09 信中）', isNew:false, completed:false },
+    { id:'u-mwkdwnvd1wal', section:'thisweek', code:'', title:'VIP 選號流程', progress:'', note:'分行可以用 31419 自行查詢所有分行用到哪一號，跟我們說要保留的帳號，我們再檔變(XREF、...))', isNew:false, completed:false, added:true, startDate:'2026-11-17', deadline:'2026-11-20', actualStart:'', actualEnd:'' },
+    { id:'u-mwkf14ij1g6z', section:'thisweek', code:'', title:'處理 INOD 資轉，應收利息去除小數位作業', progress:'', note:'', isNew:false, completed:false, added:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'u-mwkhgz8z19sl', section:'thisweek', code:'', title:'撰寫定存資轉TS', progress:'', note:'', isNew:false, completed:false, added:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'w1', section:'thisweek', code:'2507151094', title:'合併案相關事項', progress:'', note:'', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'w5', section:'thisweek', code:'2507041017', title:'新壽即期支票聯行兌付（確認USER需求）', progress:'', note:'進行中', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'w6', section:'thisweek', code:'', title:'處理存摺餘額不符無法補印存摺問題', progress:'10', note:'進行中', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'w8', section:'thisweek', code:'', title:'支存需求', progress:'', note:'進行中；11/09 11:00 日誌：確認支存需求（未出現在 11/09 信中）', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
     /* 待辦 */
-    { id:'t1', section:'todo', code:'', title:'作服需求：外僑扣憑檔傳輸廠商列印', progress:'', note:'目前處理情形：預計 2027 年開始開發', isNew:false, completed:false },
-    { id:'t2', section:'todo', code:'2311201028', title:'臨櫃交易執行 Bancs 系統時檢核「特殊註記客戶／未予核貸紀錄查詢維護系統」C18、C20、「高風險警示資料庫」，觸擊時跳提示訊息', progress:'', note:'目前處理情形：剩待 BSLINK 完成', isNew:false, completed:false },
-    { id:'t3', section:'todo', code:'', title:'無法列印存款餘額證明問題', progress:'', note:'待處理', isNew:false, completed:false },
-    { id:'t4', section:'todo', code:'', title:'定存續存到期日未更新問題', progress:'', note:'待處理；與追蹤中「Richart 定存到期日未更新問題」是否同一件，待他確認', isNew:false, completed:false },
-    { id:'t5', section:'todo', code:'', title:'IN0800 調整 card 檔 QA 驗測', progress:'', note:'待處理', isNew:false, completed:false },
-    { id:'t6', section:'todo', code:'', title:'作服臨櫃關懷需求', progress:'', note:'待 USER 確認需求', isNew:false, completed:false },
-    { id:'t7', section:'todo', code:'', title:'調整續航及股利專案階梯利率', progress:'', note:'預計 1 月底前上線（2026-11-17 他親口說新增）', isNew:true, completed:false },
+    { id:'t7', section:'todo', code:'2611171021', title:'調整續航及股利專案階梯利率', progress:'', note:'預計 1 月底前上線', isNew:true, completed:false, startDate:'', deadline:'2027-01-22', actualStart:'', actualEnd:'' },
+    { id:'k1', section:'todo', code:'2611051003', title:'資查單（信託財產專戶活／定存交易資料）', progress:'', note:'', isNew:false, completed:false, startDate:'2027-01-04', deadline:'2027-01-04', actualStart:'', actualEnd:'' },
+    { id:'w4', section:'todo', code:'2610211036', title:'扣繳憑單作業', progress:'', note:'', isNew:false, completed:false, startDate:'2027-01-04', deadline:'2027-01-08', actualStart:'', actualEnd:'' },
     /* 追蹤中 */
-    { id:'k1', section:'tracking', code:'2611051003', title:'資查單（信託財產專戶活／定存交易資料）', progress:'', note:'進行中；本週表未列入', isNew:false, completed:false },
-    { id:'k2', section:'tracking', code:'', title:'Richart 定存到期日未更新問題', progress:'', note:'進行中（10/29 查詢／處理）', isNew:false, completed:false },
-    { id:'k3', section:'tracking', code:'', title:'Richart 定存中途解約違約金異常', progress:'', note:'進行中（10/28 查詢）', isNew:false, completed:false },
-    { id:'k4', section:'tracking', code:'', title:'R4 透支待分配不等於 0', progress:'', note:'進行中（10/28 查詢）', isNew:false, completed:false },
-    { id:'k5', section:'tracking', code:'', title:'INRH 問題', progress:'', note:'進行中（10/27 查詢、確認）', isNew:false, completed:false },
-    { id:'k6', section:'tracking', code:'', title:'支援 DBTM 問題', progress:'', note:'進行中（10/29、10/30 支援處理）', isNew:false, completed:false },
+    { id:'t2', section:'tracking', code:'2311201028', title:'臨櫃交易執行 Bancs 系統時檢核「特殊註記客戶／未予核貸紀錄查詢維護系統」C18、C20、「高風險警示資料庫」，觸擊時跳提示訊息', progress:'', note:'目前處理情形：剩待 BSLINK 完成', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'k2', section:'tracking', code:'', title:'Richart 定存到期日未更新問題', progress:'', note:'進行中（10/29 查詢／處理）', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'t4', section:'tracking', code:'', title:'定存續存到期日未更新問題', progress:'', note:'待處理；與追蹤中「Richart 定存到期日未更新問題」是否同一件，待他確認', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'t3', section:'tracking', code:'', title:'無法列印存款餘額證明問題', progress:'', note:'待處理', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'t1', section:'tracking', code:'', title:'作服需求：外僑扣憑檔傳輸廠商列印', progress:'', note:'目前處理情形：預計 2027 年開始開發', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'t6', section:'tracking', code:'', title:'作服臨櫃關懷需求', progress:'', note:'待 USER 確認需求', isNew:false, completed:false, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
     /* 已完成・已結案 */
-    { id:'d1', section:'done', code:'', title:'資訊資產盤點', progress:'100', note:'—', isNew:false, completed:true },
-    { id:'d2', section:'done', code:'', title:'eMBO', progress:'100', note:'—', isNew:false, completed:true },
-    { id:'d3', section:'done', code:'2610051067', title:'低度久未往來客戶資料撈取', progress:'100', note:'已結案', isNew:false, completed:true }
+    { id:'d1', section:'done', code:'', title:'資訊資產盤點', progress:'100', note:'—', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'d2', section:'done', code:'', title:'eMBO', progress:'100', note:'—', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'d3', section:'done', code:'2610051067', title:'低度久未往來客戶資料撈取', progress:'100', note:'已結案', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'w2', section:'done', code:'2507151094', title:'執行XREF匯出作業', progress:'100', note:'進行中；11/09 10:00 日誌：準備執行XREF匯出作業', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'w3', section:'done', code:'', title:'查詢Richart 定存無法解約問題', progress:'100', note:'進行中', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'w7', section:'done', code:'2610151031', title:'Richart 大會員定存結清失敗（稅率代號錯誤）', progress:'100', note:'進行中；2026-11-09 他確認仍處理中（未出現在 11/09 信中）', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'t5', section:'done', code:'', title:'IN0800 調整 card 檔 QA 驗測', progress:'100', note:'待處理', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'k3', section:'done', code:'', title:'Richart 定存中途解約違約金異常', progress:'100', note:'進行中（10/28 查詢）', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'k4', section:'done', code:'', title:'R4 透支待分配不等於 0', progress:'100', note:'進行中（10/28 查詢）', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'k5', section:'done', code:'', title:'INRH 問題', progress:'100', note:'進行中（10/27 查詢、確認）', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' },
+    { id:'k6', section:'done', code:'', title:'支援 DBTM 問題', progress:'100', note:'進行中（10/29、10/30 支援處理）', isNew:false, completed:true, startDate:'', deadline:'', actualStart:'', actualEnd:'' }
   ];
-
-  /* 預計開始時間、預計完成日期、實際開始時間與實際完成日期：現有 24 項皆未設定，統一補上空字串欄位（'YYYY-MM-DD' 或 ''） */
-  DEFAULT_ITEMS.forEach(function(it){ it.deadline = ''; it.startDate = ''; it.actualStart = ''; it.actualEnd = ''; });
 
   function clone(obj){ return JSON.parse(JSON.stringify(obj)); }
 
@@ -526,7 +528,7 @@
       return '<div class="progress"><span class="na">進度未填</span></div>';
     }
     var stage = STAGES[it.progress] ? '<span class="stage">'+esc(STAGES[it.progress])+'</span>' : '';
-    return '<div class="progress"><div class="bar"><i style="width:'+esc(it.progress)+'%">'+'</i></div><b>'+esc(it.progress)+'%</b>'+stage+'</div>';
+    return '<div class="progress"><div class="bar"><i style="width:'+esc(it.progress)+'%"></i></div><b>'+esc(it.progress)+'%</b>'+stage+'</div>';
   }
 
   function deadlineHTML(it){
