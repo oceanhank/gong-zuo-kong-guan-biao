@@ -126,16 +126,16 @@
 
   /* Table — compact rows: one slim line per item on desktop */
   .table{width:100%;border-collapse:separate;border-spacing:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--shadow);table-layout:fixed}
-  .table th,.table td{text-align:left;vertical-align:middle;padding:7px 10px;border-bottom:1px solid var(--line)}
+  .table th,.table td{text-align:left;vertical-align:middle;padding:10px 10px;border-bottom:1px solid var(--line)}
   .table thead th{font-size:.74rem;letter-spacing:.06em;color:var(--ink-3);font-weight:700;background:var(--surface-2);white-space:nowrap;padding-top:6px;padding-bottom:6px}
-  .table th:nth-child(1){width:76px}
+  .table th:nth-child(1){width:104px}
   .table th:nth-child(3){width:104px}
   .table th:nth-child(4){width:94px}
   .table th:nth-child(5){width:94px}
   .table th:nth-child(6){width:94px}
   .table th:nth-child(7){width:94px}
   .table th:nth-child(8){width:10%}
-  .table th:nth-child(9){width:272px}
+  .table th:nth-child(9){width:246px}
   .deadline-cell,.start-cell,.actual-start-cell,.actual-end-cell{font-variant-numeric:tabular-nums;font-size:.82rem;white-space:nowrap}
   .deadline-cell .na,.start-cell .na,.actual-start-cell .na,.actual-end-cell .na{color:var(--ink-3);font-size:.79rem}
   .deadline-cell.overdue{color:var(--danger);font-weight:700}
@@ -146,9 +146,12 @@
   .table tbody tr.editing{background:var(--accent-soft);vertical-align:top}
   .table tbody tr.editing td{vertical-align:top}
   .table tbody tr.editing:hover{background:var(--accent-soft)}
-  .code{font-variant-numeric:tabular-nums;font-weight:700;font-size:.82rem;white-space:nowrap}
+  .code{font-variant-numeric:tabular-nums;font-weight:700;font-size:.8rem;white-space:nowrap}
   .code.none{color:var(--ink-3);font-weight:500;font-size:.8rem}
-  .title-cell{font-weight:600;font-size:.9rem;line-height:1.45}
+  .title-cell{font-weight:600;font-size:.9rem;line-height:1.55}
+  @media(min-width:1181px){
+    .table td.title-cell{padding-left:16px}
+  }
   .is-new td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
   .new-tag{display:inline-block;font-size:.68rem;font-weight:900;letter-spacing:.04em;color:var(--accent-ink);background:var(--accent-soft);padding:1px 6px;border-radius:999px;margin-left:6px;vertical-align:2px;white-space:nowrap}
   .done-tag{display:inline-block;font-size:.68rem;font-weight:900;letter-spacing:.04em;color:#fff;background:var(--accent);padding:1px 6px;border-radius:999px;margin-left:6px;vertical-align:2px;white-space:nowrap}
